@@ -1,3 +1,23 @@
-<p>
-  playlist-detail works!
-</p>
+<div>
+  <dl>
+    <dt>Name</dt>
+    <dd>{{playlist.name}}</dd>
+    <dt>Favourite</dt>
+    <dd>{{playlist.favourite ? 'yes' : 'no'}}</dd>
+    <dt>Color</dt>
+    <dd [style.color]="playlist.color">{{playlist.color}}</dd>
+  </dl>
+</div> 
+
+<div>
+  <div class="form-group">
+    <label for="">Name</label>
+    <input type="text" class="form-control" [value]="playlist.name">
+  </div>
+  <div class="form-group">
+    <label for="">Favourite</label>
+    <input type="checkbox"  [checked]="playlist.favourite"></div>
+  <div class="form-group">
+    <label for="">Color</label>
+    <input type="color" [value]="playlist.color"></div>
+</div>

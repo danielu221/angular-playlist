@@ -10,7 +10,7 @@ export class PlaylistDetailsComponent implements OnInit {
 
   playlist:Playlist = {
     id:123,
-    color:"#ff0101",
+    color:"#00ff01",
     favourite:true,
     name:"wlasna playlista"
   }
