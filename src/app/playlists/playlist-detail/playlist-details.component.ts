@@ -15,9 +15,26 @@ export class PlaylistDetailsComponent implements OnInit {
     name:"wlasna playlista"
   }
 
+  mode : "show" | "edit";
+
+
+  edit(){
+    console.log("edit");
+    this.mode = "edit"
+  }
+
+  save(){
+    console.log("save");
+    this.mode = "show"
+  }
+
+  cancel(){
+    console.log("cancel");
+  }
   constructor() { }
 
   ngOnInit() {
+    this.mode = "show";
   }
 
 }
