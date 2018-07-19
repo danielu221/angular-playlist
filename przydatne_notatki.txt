@@ -4,3 +4,4 @@
 - w providerach mozna zapewnic zmienne do wstrzykniecia np provide:.., useValue:... 
 - na starcie metody , ktore maja sie uruchamiac to umieszcamy w klasie appmodules, np konstruktor
 - wydobywanie tokenu z GET w URL pokazano w security service
+- rxmarbles.com - mozna pobawic sie observablami

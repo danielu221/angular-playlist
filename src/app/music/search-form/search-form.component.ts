@@ -16,8 +16,8 @@ export class SearchFormComponent implements OnInit {
   }
 
   getAlbums(value){
-    this.musicService.getAlbums(value).subscribe((data:any)=>
-    {this.searchClicked.emit(data.albums.items)});
+    this.musicService.getAlbums(value).subscribe((albums)=>
+    {this.searchClicked.emit(albums)});
   }
 
 }
