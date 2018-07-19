@@ -1,0 +1,1 @@
+- elvis operator (?) sprawdza czy obiekt istnieje np selected?.name

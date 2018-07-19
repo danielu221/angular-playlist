@@ -1,5 +1,5 @@
-<p>
-  item-list works!
-</p>
-
-<app-list-item></app-list-item>
+<div class="list-group">
+  <div class="list-group-item list-group-item-action" *ngFor="let playlist of playlists; let i='index'; trackBy trackFn" [ngClass]="{'active':playlist.id==selected.id}" (click)="select(playlist)">
+    {{i+1}}. {{playlist.name}}
+    </div>
+</div>

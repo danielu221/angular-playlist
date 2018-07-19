@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { PlaylistsModule } from './playlists/playlists.module';
+import { MusicModule } from './music/music.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { PlaylistsModule } from './playlists/playlists.module';
   ],
   imports: [
     BrowserModule,
-    PlaylistsModule
+    PlaylistsModule,
+    MusicModule
   ],
   providers: [],
   bootstrap: [AppComponent]
