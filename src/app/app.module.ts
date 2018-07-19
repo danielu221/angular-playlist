@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationRef } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { MusicModule } from './music/music.module';
+import { SecurityModule } from './security/security.module';
+import { SecurityService } from './security/security.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +14,14 @@ import { MusicModule } from './music/music.module';
   imports: [
     BrowserModule,
     PlaylistsModule,
-    MusicModule
+    MusicModule,
+    SecurityModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private security:SecurityService,private  app:ApplicationRef){
+    this.security.getToken();
+  }
+}
