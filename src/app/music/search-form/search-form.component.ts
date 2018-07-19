@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MusicService } from '../music.service';
 
 @Component({
   selector: 'app-search-form',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchFormComponent implements OnInit {
 
-  constructor() { }
+  @Output() searchClicked = new EventEmitter<any>();
+
+  constructor(private musicService:MusicService) { }
 
   ngOnInit() {
+  }
+
+  getAlbums(value){
+    this.musicService.getAlbums(value).subscribe((data:any)=>
+    {this.searchClicked.emit(data.albums.items)});
   }
 
 }

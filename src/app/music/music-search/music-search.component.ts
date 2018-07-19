@@ -16,5 +16,4 @@ export class MusicSearchComponent implements OnInit {
     this.musicService.getAlbums().subscribe((data:any)=>
     {this.albums=data.albums.items});
   }
-
 }

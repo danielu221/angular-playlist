@@ -14,7 +14,9 @@ export class SecurityService {
     redirect_uri:'http://localhost:4200/'
   }
 
-  constructor(@Inject (DOCUMENT) private document:Document) { }
+  constructor(
+    @Inject (DOCUMENT) private document:Document,
+    @Inject('Storage') private storage:Storage) { }
   
   token:string;
   
@@ -28,16 +30,20 @@ export class SecurityService {
       }
     });
 
-    console.log(this.config.auth_url + "?" + params.toString())
+    document.location.replace(this.config.auth_url + "?" + params.toString())
+    this.storage.removeItem('token')
   }
   
   getToken(){
+    this.token = JSON.parse(this.storage.getItem('token'));
+    
     if(!this.token && this.document.location.hash){
       const hash = this.document.location.hash.substr(1)
       const params = new HttpParams({
         fromString:hash
       })
-      this.token = params.get('access_token')
+      this.token = params.get('access_token');
+      this.storage.setItem('token',JSON.stringify(this.token))
 
     }
     if(!this.token){
