@@ -16,8 +16,8 @@
           Field is should be at least {{error.requiredLength}} characters  
         </div>
 
-        <div *ngIf="queryForm.get('query').hasError('censor')">
-            Field should not be equal to batman  
+        <div *ngIf="queryForm.get('query').getError('censor') as error">
+            Field should not be equal to  {{error.badword}} 
           </div>
       </ng-container>
     

@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col">
-    <app-search-form (searchClicked)="albums=$event"></app-search-form>  
+    <app-search-form (searchClicked)="search($event)"></app-search-form>  
   </div>
 </div>
 
 <div class="row">
   <div class="col">
-    <app-albums-grid [albums]="albums"></app-albums-grid> 
+    <app-albums-grid [albums]="albums | async"></app-albums-grid> 
   </div>
 </div>

@@ -80,8 +80,9 @@ export class SearchFormComponent implements OnInit {
   }
 
   getAlbums(value){
-    this.musicService.getAlbums(value).subscribe((albums)=>
-    {this.searchClicked.emit(albums)});
+    this.searchClicked.emit(value)
+  //   this.musicService.getAlbums()
+  //  .subscribe((albums)=>{this.searchClicked.emit(albums)});
   }
 
 }
