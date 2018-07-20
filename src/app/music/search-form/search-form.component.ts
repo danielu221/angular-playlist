@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MusicService } from '../music.service';
 import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors, AsyncValidatorFn } from '../../../../node_modules/@angular/forms';
-import { distinctUntilChanged, filter, debounceTime, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, debounceTime, map, withLatestFrom } from 'rxjs/operators';
 import { Observable, Observer } from '../../../../node_modules/rxjs';
 import { callbackify } from 'util';
 
@@ -57,16 +57,23 @@ export class SearchFormComponent implements OnInit {
     });
 
     const status$ = this.queryForm.get('query').statusChanges;
-    const value$=this.queryForm.get('query').valueChanges;
+    const value$=this.queryForm.get('query').valueChanges
+      .pipe(
+          debounceTime(500),
+          map(query => query.trim()),
+          distinctUntilChanged(),
+          filter(query => query.length >= 3),
+      )
 
-    value$.pipe(
-      debounceTime(500),
-      map(query => query.trim()),
-      distinctUntilChanged(),
-      filter(query => query.length >= 3),
-    ).subscribe(query=>
-      this.getAlbums(query)
+    const valid$= status$.pipe(
+      filter(status => status == "VALID")
     )
+
+    valid$.pipe(
+      withLatestFrom(value$,(valid,value) =>value))
+      .subscribe(query=>{
+        this.getAlbums(query)
+      });
    }
 
   ngOnInit() {

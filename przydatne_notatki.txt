@@ -5,3 +5,4 @@
 - na starcie metody , ktore maja sie uruchamiac to umieszcamy w klasie appmodules, np konstruktor
 - wydobywanie tokenu z GET w URL pokazano w security service
 - rxmarbles.com - mozna pobawic sie observablami
+- asynchroniczne elementy do zmiennych mozna na koncu dac $
