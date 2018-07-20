@@ -1,9 +1,23 @@
-<div class="input-group mb-3" [formGroup]="queryForm">
-    <div class="input-group-prepend">
-      <button class="btn btn-info" (click)="getAlbums(searchInput.value)" >Search</button>
-    </div>
-    <input type="text" class="form-control" placeholder="Playlist name" aria-label="Playlist name" aria-describedby="basic-addon1" 
-            #searchInput 
-            (keyup.enter)="getAlbums(searchInput.value)"
-            formControlName="query">
-  </div>
+<form class="form-group mb-3" [formGroup]="queryForm">
+      <div class="input-group-prepend">
+        <button class="btn btn-info" (click)="getAlbums(searchInput.value)" >Search</button>
+        <input type="text" class="form-control" placeholder="Playlist name" aria-label="Playlist name" aria-describedby="basic-addon1" 
+        #searchInput 
+        (keyup.enter)="getAlbums(searchInput.value)"
+        formControlName="query"/>
+      </div>
+    
+      <ng-container *ngIf="queryForm.get('query').touched || queryForm.get('query').dirty">
+        <div *ngIf="queryForm.get('query').hasError('required')">
+          Field is required
+        </div>
+        <div *ngIf="queryForm.get('query').getError('minlength') as error">
+          Field is should be at least {{error.requiredLength}} characters  
+        </div>
+
+        <div *ngIf="queryForm.get('query').hasError('censor')">
+            Field should not be equal to batman  
+          </div>
+      </ng-container>
+    
+  </form>

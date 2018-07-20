@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MusicService } from '../music.service';
-import { FormGroup, FormControl } from '../../../../node_modules/@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '../../../../node_modules/@angular/forms';
+import { distinctUntilChanged, filter, debounceTime, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-form',
@@ -13,11 +14,26 @@ export class SearchFormComponent implements OnInit {
   @Output() searchClicked = new EventEmitter<any>();
 
   constructor(private musicService:MusicService) {
+    const censor: ValidatorFn = (control:AbstractControl | null) =>{
+      const hasError = control.value.includes('batman');
+      return hasError? {
+        'censor':true
+      }: null
+    }
     this.queryForm = new FormGroup({
-      'query': new FormControl()
+      'query': new FormControl('',[
+        Validators.required,
+        Validators.minLength(3),
+        censor
+      ])
     });
 
-    this.queryForm.get('query').valueChanges.subscribe(query=>
+    this.queryForm.get('query').valueChanges.pipe(
+      debounceTime(500),
+      map(query => query.trim()),
+      distinctUntilChanged(),
+      filter(query => query.length >= 3),
+    ).subscribe(query=>
       this.getAlbums(query)
     )
    }

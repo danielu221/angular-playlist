@@ -1,0 +1,8 @@
+form .ng-invalid .ng-touched,
+form .ng-invalid .ng-dirty{
+    border:2px solid red;
+}
+
+/* form .ng-invalid ~ *{
+    color:red
+} */
