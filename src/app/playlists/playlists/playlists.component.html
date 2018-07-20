@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <app-item-list [items]="playlists" [selected]="selected" (selectedChange)="selected = $event"></app-item-list>
+    <app-item-list [items]="playlists" [selected]="selected" (selectedChange)="select($event)"></app-item-list>
   </div>
   <div class="col">
     <app-playlist-details [playlist]="selected" (save)="save($event)"></app-playlist-details> 

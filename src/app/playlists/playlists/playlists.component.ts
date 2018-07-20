@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Playlist } from '../../model/playlist';
+import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-playlists',
@@ -8,7 +9,18 @@ import { Playlist } from '../../model/playlist';
 })
 export class PlaylistsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute , private router:Router) {
+    const id = parseInt(route.snapshot.paramMap.get('id'));
+    const playlist = this.playlists.find(p=>p.id == id)
+    
+    if(playlist){
+      this.selected= playlist;
+    }
+    else{   
+      this.selected=this.playlists[0];
+    }
+   
+   }
 
   ngOnInit() {
   }
@@ -40,5 +52,12 @@ export class PlaylistsComponent implements OnInit {
     if(idx !== -1){
       this.playlists.splice(idx,1,playlist);
     }
+  }
+
+  select(selected){
+    this.selected=selected;
+    this.router.navigate(['/playlists',selected.id],{
+      queryParams:{placki:'YES'}
+    })
   }
 }

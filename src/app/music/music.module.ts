@@ -8,12 +8,14 @@ import { MusicService, SEARCH_URL } from './music.service';
 import { environment } from '../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '../../../node_modules/@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [MusicSearchComponent, SearchFormComponent, AlbumsGridComponent, AlbumItemComponent],
   providers: [{

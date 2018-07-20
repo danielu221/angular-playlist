@@ -1,4 +1,4 @@
 <img [src]="album.images[0].url" alt="" class="card-img-top">
   <span class="card-body">
-    <h5 class="card-title text-center"> {{album.name}}</h5>
+    <h5 class="card-title text-center"> {{album.name | shorten}}</h5>
   </span>

@@ -5,7 +5,7 @@ import { SecurityService } from '../security/security.service';
 
 export const SEARCH_URL = new InjectionToken("URL for albums search API");
 import {map, catchError, switchMap} from "rxjs/operators"
-import { throwError, Subject, of } from '../../../node_modules/rxjs';
+import { throwError, Subject, of, BehaviorSubject } from '../../../node_modules/rxjs';
 
 interface AlbumsResponse{
   albums:{
@@ -19,8 +19,8 @@ interface AlbumsResponse{
 })
 export class MusicService {
 
-  queries = new Subject<string>()
-  albums = new Subject<Album[]>()
+  queries = new BehaviorSubject<string>('sport')
+  albums = new BehaviorSubject<Album[]>([])
 
   constructor(
     @Inject(SEARCH_URL) private api_url, 

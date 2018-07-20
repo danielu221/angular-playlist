@@ -6,6 +6,7 @@ import { PlaylistsModule } from './playlists/playlists.module';
 import { MusicModule } from './music/music.module';
 import { SecurityModule } from './security/security.module';
 import { SecurityService } from './security/security.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SecurityService } from './security/security.service';
     BrowserModule,
     PlaylistsModule,
     MusicModule,
-    SecurityModule
+    SecurityModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
