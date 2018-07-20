@@ -7,11 +7,13 @@ import { AlbumItemComponent } from './album-item/album-item.component';
 import { MusicService, SEARCH_URL } from './music.service';
 import { environment } from '../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '../../../node_modules/@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   declarations: [MusicSearchComponent, SearchFormComponent, AlbumsGridComponent, AlbumItemComponent],
   providers: [{

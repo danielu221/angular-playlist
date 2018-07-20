@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MusicService } from '../music.service';
+import { FormGroup, FormControl } from '../../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'app-search-form',
@@ -8,9 +9,18 @@ import { MusicService } from '../music.service';
 })
 export class SearchFormComponent implements OnInit {
 
+  queryForm: FormGroup;
   @Output() searchClicked = new EventEmitter<any>();
 
-  constructor(private musicService:MusicService) { }
+  constructor(private musicService:MusicService) {
+    this.queryForm = new FormGroup({
+      'query': new FormControl()
+    });
+
+    this.queryForm.get('query').valueChanges.subscribe(query=>
+      this.getAlbums(query)
+    )
+   }
 
   ngOnInit() {
   }
