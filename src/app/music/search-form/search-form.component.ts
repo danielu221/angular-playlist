@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MusicService } from '../music.service';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '../../../../node_modules/@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors, AsyncValidatorFn } from '../../../../node_modules/@angular/forms';
 import { distinctUntilChanged, filter, debounceTime, map } from 'rxjs/operators';
+import { Observable, Observer } from '../../../../node_modules/rxjs';
+import { callbackify } from 'util';
 
 @Component({
   selector: 'app-search-form',
@@ -14,21 +16,50 @@ export class SearchFormComponent implements OnInit {
   @Output() searchClicked = new EventEmitter<any>();
 
   constructor(private musicService:MusicService) {
-    const censor: ValidatorFn = (control:AbstractControl | null) =>{
-      const hasError = control.value.includes('batman');
+
+    const censor = (badword): ValidatorFn =>
+                 (control:AbstractControl) : ValidationErrors | null =>{
+      const hasError = control.value.includes(badword);
       return hasError? {
-        'censor':true
+        'censor':{
+          badword
+        }
       }: null
-    }
+    };
+
+    const asyncCensor = (badword):AsyncValidatorFn => ( control: AbstractControl) => {
+      return Observable.create((observer: Observer<ValidationErrors> | null)=>{
+        const handler = setTimeout(()=>{
+          const hasError = control.value.includes(badword)
+          observer.next(hasError?{
+            'censor':{
+              badword
+            }
+          }:null)
+          observer.complete()
+        },2000)
+
+        return ()=>{
+          clearTimeout(handler)
+        }
+      })
+    };
+
     this.queryForm = new FormGroup({
       'query': new FormControl('',[
         Validators.required,
-        Validators.minLength(3),
-        censor
-      ])
+        Validators.minLength(3)],
+        // censor('batman')
+        [
+          asyncCensor('batman')
+        ]
+      )
     });
 
-    this.queryForm.get('query').valueChanges.pipe(
+    const status$ = this.queryForm.get('query').statusChanges;
+    const value$=this.queryForm.get('query').valueChanges;
+
+    value$.pipe(
       debounceTime(500),
       map(query => query.trim()),
       distinctUntilChanged(),
