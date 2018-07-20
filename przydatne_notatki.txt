@@ -6,3 +6,5 @@
 - wydobywanie tokenu z GET w URL pokazano w security service
 - rxmarbles.com - mozna pobawic sie observablami
 - asynchroniczne elementy do zmiennych mozna na koncu dac $
+
+-concatMap, mergeMap, switchMap 
